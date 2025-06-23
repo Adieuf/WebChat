@@ -6,7 +6,7 @@ This project demonstrates how to connect a frontend built with WebChat to a Micr
 
 ```
 backend/    # FastAPI service that issues Direct Line tokens
-frontend/   # Static files served by nginx (index.html with WebChat)
+frontend/   # Static WebChat page
 docker-compose.yml  # Optional Docker setup for local dev
 ```
 
@@ -25,7 +25,7 @@ docker-compose.yml  # Optional Docker setup for local dev
 3. **Run the backend**
 
    ```bash
-   uvicorn backend.app:app --host 0.0.0.0 --port 3978
+   python backend/main.py
    ```
 
 4. **Serve the frontend** (any static server will work). For quick testing you can use Python:
@@ -35,11 +35,12 @@ docker-compose.yml  # Optional Docker setup for local dev
    python -m http.server 8080
    ```
 
-   Visit `http://localhost:8080` and you should see the WebChat interface.
+   Visit `http://localhost:8080` and you should see the WebChat interface. Ensure
+   the `API_BASE_URL` constant in `frontend/index.html` matches the backend URL.
 
-### Docker
+### Docker (optional)
 
-Alternatively run everything with Docker:
+If you have Docker installed you can run both services with one command:
 
 ```bash
 docker compose up --build
@@ -95,6 +96,6 @@ Environments for Copilot Studio agents are created and managed in the **Power Pl
 
 - **Modularity** – The backend is a simple FastAPI app with a single responsibility: issuing Direct Line tokens. Frontend code is kept minimal.
 - **Environment Variables** – All secrets and configuration are read from `.env` using `python-dotenv`.
-- **Docker** – Included for local development and easy deployment.
+- **Docker** – Provided only as an optional convenience for running both services.
 - **Idiomatic Code** – The code uses type hints with `pydantic` models and follows FastAPI conventions.
 

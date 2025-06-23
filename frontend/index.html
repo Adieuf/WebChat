@@ -12,11 +12,20 @@
 <body>
   <div id="webchat" role="main"></div>
   <script>
+    // Update API_BASE_URL if your backend runs elsewhere
+    const API_BASE_URL = 'http://localhost:3978';
+
     async function startWebChat() {
-      const res = await fetch('/api/token');
+      const res = await fetch(`${API_BASE_URL}/api/token`);
       const { token } = await res.json();
-      window.WebChat.renderWebChat({ directLine: window.WebChat.createDirectLine({ token }) }, document.getElementById('webchat'));
+      window.WebChat.renderWebChat(
+        {
+          directLine: window.WebChat.createDirectLine({ token })
+        },
+        document.getElementById('webchat')
+      );
     }
+
     startWebChat();
   </script>
 </body>
